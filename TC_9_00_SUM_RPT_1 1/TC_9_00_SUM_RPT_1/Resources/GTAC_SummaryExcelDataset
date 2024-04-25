@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0"
+           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+           xmlns:plm="http://www.plmxml.org/Schemas/PLMXMLSchema"
+           xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+           xmlns:o="urn:schemas-microsoft-com:office:office"
+           xmlns:x="urn:schemas-microsoft-com:office:excel"
+           xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+           xmlns:html="http://www.w3.org/TR/REC-html40" >
+<xsl:template match="/">
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+        xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:x="urn:schemas-microsoft-com:office:excel"
+        xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+        xmlns:html="http://www.w3.org/TR/REC-html40">
+   <Styles>
+      <Style ss:ID="heading1">
+         <Font ss:Color="#000000" ss:Size="20" ss:FontName="Arial" ss:Bold="2"/>
+         <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+      </Style>
+      <Style ss:ID="heading2">
+         <Font ss:Color="#000000" ss:Size="12" ss:FontName="Arial" ss:Bold="2"/>
+         <Interior ss:Color="#3399ff" ss:Pattern="Solid"/>
+      </Style>
+      <Style ss:ID="heading3">
+         <Font ss:Color="#000000" ss:Size="20" ss:FontName="Arial" ss:Bold="2"/>
+         <Interior ss:Color="#ffffff" ss:Pattern="Solid"/>
+      </Style>
+      <Style ss:ID="cell_data">
+         <Font ss:Color="#000000"/>
+         <Interior ss:Color="#FFFFCC" ss:Pattern="Solid"/>
+      </Style>
+   </Styles>
+   <Worksheet ss:Name="Sheet1">
+   <xsl:variable name="date" select="/plm:PLMXML/@date"/>
+      <Table>
+         <Row/>
+         <Row>
+            <Cell ss:StyleID="heading2">
+               <Data ss:Type="String">
+               Date = <xsl:value-of select="$date"/></Data> 
+            </Cell>
+            <Cell ss:StyleID="heading2"/>
+         </Row>
+         <Row/>
+		 <Row></Row>
+		 
+		 	 <Row>
+      <!--ROW TO DISPLAY Properties in Row-->
+      <Cell ss:StyleID="heading2" >
+        <Data ss:Type="String"> Item id</Data>
+      </Cell>
+      <Cell ss:StyleID="heading2" >
+        <Data ss:Type="String">Revision iD</Data>
+      </Cell>
+      <Cell ss:StyleID="heading2" >
+        <Data ss:Type="String">last mod date</Data>
+      </Cell>
+      <Cell ss:StyleID="heading2" >
+        <Data ss:Type="String">object name</Data>
+      </Cell>
+	  <Cell ss:StyleID="heading2" >
+        <Data ss:Type="String">object desc</Data>
+      </Cell>
+	  <Cell ss:StyleID="heading2" >
+        <Data ss:Type="String">object type</Data>
+      </Cell>
+	   <Cell ss:StyleID="heading2" >
+        <Data ss:Type="String">owning user</Data>
+      </Cell>
+    </Row>
+	<xsl:for-each select="/plm:PLMXML/plm:ProductRevision">
+		  <Row>  
+	  <xsl:variable name="itemID" select="substring-after(./@masterRef, '#')"/>
+            <xsl:variable name="itemIDValue" select="/plm:PLMXML/plm:Product[@id=$itemID]/@productId"/>
+            <xsl:variable name="revision" select="./@revision"/>
+            <xsl:variable name="last_mod_date" select="substring-before(plm:UserData/plm:UserValue[@title='last_mod_date']/@value, 'T')"/>
+            <xsl:variable name="object_name" select="plm:UserData/plm:UserValue[@title='object_name']/@value"/>
+            <xsl:variable name="object_desc" select="plm:UserData/plm:UserValue[@title='object_desc']/@value"/>
+            <xsl:variable name="objectType" select="plm:UserData/plm:UserValue[@title='object_type']/@value"/>
+			<xsl:variable name="owning_userDataref" select="substring-after(plm:UserData/plm:UserValue[@title='owning_user']/@dataRef,'#')"/>
+			<xsl:variable name="owning_user" select="/plm:PLMXML/plm:User[@id=$owning_userDataref]/@userId"/>
+  
+      <!--ROW TO DISPLAY PROPERTIES-->
+      <Cell ss:StyleID="heading3" >
+        <Data ss:Type="String"><xsl:value-of select="$itemIDValue"/></Data>
+      </Cell>
+      <Cell ss:StyleID="heading3" >
+        <Data ss:Type="String"><xsl:value-of select="$revision"/></Data>
+      </Cell>
+      <Cell ss:StyleID="heading3" >
+        <Data ss:Type="String"><xsl:value-of select="$last_mod_date"/></Data>
+      </Cell>
+      <Cell ss:StyleID="heading3" >
+        <Data ss:Type="String"><xsl:value-of select="$object_name"/></Data>
+      </Cell>
+	  <Cell ss:StyleID="heading3" >
+        <Data ss:Type="String"><xsl:value-of select="$object_desc"/></Data>
+      </Cell>
+	  <Cell ss:StyleID="heading3" >
+        <Data ss:Type="String"><xsl:value-of select="$objectType"/></Data>
+      </Cell>
+	  <Cell ss:StyleID="heading3" >
+        <Data ss:Type="String"><xsl:value-of select="$owning_user"/></Data>
+      </Cell>
+	  </Row> 
+	  </xsl:for-each>
+      </Table>
+   </Worksheet>
+</Workbook>
+</xsl:template>
+</xsl:stylesheet>

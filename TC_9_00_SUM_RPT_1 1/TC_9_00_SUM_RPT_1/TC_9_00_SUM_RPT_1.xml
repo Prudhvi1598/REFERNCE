@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TC Encapsulation : Mapping X-File  -->
+
+<ReportDefinition>
+	<Id value="TC_9_00_SUM_RPT_1"/>
+	<name value="GTAC summary report">
+		<Text primary="en_US">
+			<Item language="en_US" value="GTAC summary report"/>
+		</Text>
+	</name>
+	<Description value="">
+		<Text primary="en_US">
+			<Item language="en_US" value=""/>
+		</Text>
+	</Description>
+	<Class value=""/>
+	<Type value="0"/>
+	<Source value="Teamcenter"/>
+	<QuerySource>
+		<ImanQueryDefinition>
+			<name value="00_SummaryReport_ks">
+				<Text primary="en_US">
+					<Item language="en_US" value="00_SummaryReport_ks"/>
+				</Text>
+			</name>
+			<description value="This Query is used in Report Builder to Generate report">
+				<Text primary="en_US">
+					<Item language="en_US" value="This Query is used in Report Builder to Generate report"/>
+				</Text>
+			</description>
+			<class value="ItemRevision"/>
+			<clauses_real>SELECT qid FROM ItemRevision WHERE &quot;Dataset:IMAN_specification.creation_date&quot; &gt;= &quot;${AfterCreation_date = }&quot; AND &quot;Dataset:IMAN_specification.creation_date&quot; &lt;= &quot;${BeforeCreation_date = }&quot; ORDER BY Dataset:IMAN_specification.creation_date DESCENDING USERENTRY creation_date</clauses_real>
+			<uniqueid value=""/>
+			<iflag value="0"/>
+			<rtype value="0"/>
+		</ImanQueryDefinition>
+	</QuerySource>
+	<PropertySet>
+		<Name value="GTACPropertySet"/>
+		<Description value="This property set is for IR which has Datasets attached with IMAN_specification"/>
+		<Scope value="0"/>
+		<NoOfClauses value="7"/>
+		<Clauses>
+			<clause_0 value="CLASS.ItemRevision:ATTRIBUTE.object_name:DO"/>
+			<clause_1 value="CLASS.ItemRevision:ATTRIBUTE.object_desc:DO"/>
+			<clause_2 value="CLASS.ItemRevision:ATTRIBUTE.object_type:DO"/>
+			<clause_3 value="CLASS.ItemRevision:ATTRIBUTE.owning_user:DO"/>
+			<clause_4 value="CLASS.ItemRevision:ATTRIBUTE.last_mod_date:DO"/>
+			<clause_5 value="CLASS.ItemRevision:ATTRIBUTE.item_id:DO"/>
+			<clause_6 value="CLASS.ItemRevision:ATTRIBUTE.creation_date:DO"/>
+		</Clauses>
+	</PropertySet>
+	<Stylesheets>
+		<Stylesheet>
+			<StylesheetType value="CrfHtmlStylesheet"/>
+			<StylesheetName value="GTAC_SummaryHtmlDataset"/>
+		</Stylesheet>
+		<Stylesheet>
+			<StylesheetType value="CrfExcelStylesheet"/>
+			<StylesheetName value="GTAC_SummaryExcelDataset"/>
+		</Stylesheet>
+	</Stylesheets>
+	<NoOfParameters value="2"/>
+	<Params>
+		<param_0 value="FORMAT"/>
+		<param_1 value="CLOSURE_RULE"/>
+	</Params>
+	<Values>
+		<param_0 value="PLMXML"/>
+		<param_1 value=""/>
+	</Values>
+</ReportDefinition>

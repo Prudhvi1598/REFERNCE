@@ -1,0 +1,605 @@
+Initialising...
+
+
+I P S   G E N E R I C   D A T A   U P L O A D
+=============================================
+
+       V E R S I O N   14_13_1
+
+       Teamcenter V13000.2.0.20210518.00 (WIN 64bit)
+
+       (Compiled Oct 27 2021, 13:02:13)
+
+Items, BOMs, Forms, Folders, Relations, Datasets, Files, (Un)Release,
+V9+ Projects, V8+ InClass ICOs, V9+ Identifiers, V9+ Manufacturing
+Modular/Legacy Options and Variants, CC->SC Structures
+POM Objects
+
+COPYRIGHT 2021(C) Siemens Digital Industries Software, UK Services. All rights reserved.
+
+This program is supplied as-is and does not include any warranty, maintenance
+or support unless expressly agreed with Siemens Digital Industries Software, UK Services.
+Please also note that this program is not supported by GTAC.
+
+
+Usage:   -u=<user-id> -p=<password> -g=<group>
+
+         -i=<data_file>     ,  where <data_file> specifies an input data file.
+                               The <data_file> must be in the format...
+                                   [<config_options>]
+                                   <head_line>
+                                   <data_lines>
+                               where...
+                               <config_options> can be used instead of or
+                                            as well as a config file.
+                               <head_line>  specifies the field names for the data
+                                            in the format...
+                                                !~<field1_name>~<field2_name>~...
+                                            The header line must start with a '!'
+                                            and is followed by the field separator
+                                            character which here is shown as a tilde.
+                               <data_lines> specifies multiple field delimited data
+                                            lines in the format...
+                                                <field1_value>~<field2_value>~...
+                                            using the same separator character,
+                                            e.g. '~'.
+
+       [ -h                ],  displays full help on all modes.
+       [ -h=<mode>|args    ],  displays <mode> specific help or just arguments.
+
+       [ -m=<mode>         ],  where <mode> specifies the type of data to upload.
+   or  [ -mode=<mode>      ]   The available modes are...
+
+                                   items
+                                   bom | bom_add
+                                   forms | create_forms | update_forms
+                                   relations
+                                   folder_create | folder_insert
+                                   datasets
+                                   projects       ( for TcEng V9+ only )
+                                   inclass        ( for TcEng V8+ only )
+                                   identifiers    ( for TcEng V9+ only )
+                                   mfg            ( for TcEng V9+ only )
+
+       [ -cfg=<config_file>],  where <config_file> is a file containing
+                               options to control upload behaviour.  All
+                               argument and preference settings, and many more,
+                               can be specified using the format...
+                                   OPTION = <option_value>
+                               where <option_value> is a specific value or
+                               ON or OFF for on/off options.
+
+       [ -o=<out_file>     ],  where <out_file> specifies an output log file
+                               reporting all config settings and a copy of the
+                               screen output complete with full error messages.
+                               If not supplied then the default file name will be
+                               '<data_file>.log'.
+
+       [ -r=<repeat_file>  ],  where <repeat_file> specifies a repeat file
+                               which will contain a copy of any data lines
+                               which caused an error.  The repeat file can then
+                               be used as a new input data file.
+                               If not supplied then the default file name will be
+                               '<data_file>.rep'.
+
+       [ -v                ],  turns on Verbose output, e.g. to get attachment details.
+
+       [ -debug=<level>    ],  where <level> = 1|2|4|8|16|32 | MAX
+                               The debug levels can be added together to control
+                               the debug contents.  But typically use MAX.
+                               By default debug is written to standard error
+                               which can be written to a file using '2> file', e.g...
+                                   ips_data_upload <-args> 2> debug.log
+                               Alternatively the following environment variables
+                               can be used...
+                                   DEBUG_MAX       = on
+                                   DEBUG_FILE_NAME = <debug_file>
+
+       ITEMS
+       =====
+
+       [ -t=ItemType       ],  where ItemType   = IMAN Item Type for new items
+            IMAN PREF          IPS_IMP_Item_Type
+
+       [ -d=DefaultRev     ],  default          = "A"
+            IMAN PREF          IPS_IMP_Default_Rev
+
+       [ -df=DateFormat    ],  e.g. 04/06/97    = %d/%m/%y
+            IMAN PREF          IPS_IMP_Date_Format
+
+       [ -folder=FolderName],  where FolderName = Name of Folder to put new items in
+            IMAN PREF          IPS_IMP_Folder_Name
+
+       [ -update_latest],      No value required.
+
+       BOMS
+       ====
+
+ (bom)   -bf=BomFormat      ,  where BomFormat  = parent_child | indented | levels
+                               (NOTE: Only parent_child currently available)
+                               Only required in bom mode
+            IMAN PREF          IPS_IMP_Bom_Format
+            CFG OPTION         BOM FORMAT
+
+ (bom) [ -vt=ViewType      ],  where ViewType   = BOM View Type for new BOM Views
+                               Only required in bom mode
+            IMAN PREF          IPS_IMP_View_Type
+            CFG OPTION         VIEW TYPE
+
+ (bom)      CFG OPTION         SET BOMS PRECISE, to upload precise BOMS
+
+       FORMS
+       =====
+
+ (form)  -ft=FormType       ,  where FormType = Type of form to create/update
+            IMAN PREF          IPS_IMP_Form_Type
+            CFG OPTION         FORM TYPE
+
+ (form)  -ao=AttObjType     ,  where AttObjType = ITEM | REV
+            CFG OPTION         RELATION PARENT TYPE
+
+ (form)  -rel=Relation      ,  where Relation = Spec | Manif | Req | Ref
+            CFG OPTION         RELATION NAME
+
+       RELATIONS
+       =========
+
+       Used to attach (child) objects to (parent) objects by a relation.
+
+ (rel)   -rel=RelName       ,  where RelName = Name of Relation to populate
+            CFG OPTION         RELATION NAME
+ (rel)   -newrel=NewRelName ,  where NewRelName = Name of New Relation to populate
+            CFG OPTION         RELATION NAME
+
+
+       FOLDERS
+       =======
+
+       Used to create folders and insert items into folders.
+
+(folder) -tf=TopFolder      ,  where TopFolder = Name of Top Folder
+            CFG OPTION         TOP FOLDER
+
+(folder) -fs=FolderSeperator,  where FolderSeperator = char separating
+                               folders, e.g. /FolderA/FolderB, Sep = /
+            CFG OPTION         FOLDER SEPARATOR
+
+
+       DATASETS
+       ========
+
+       Used to create datasets and import files.
+
+(file)   -ds_type=DS_Type   ,  where DS_Type = Dataset Type
+            CFG OPTION         DATASET TYPE
+
+(file)   -rel=RelName       ,  where RelName = Name of Relation to populate
+            CFG OPTION         RELATION NAME
+
+(file)   -pt=ParentType     ,  where ParentType = ITEM or REV
+                               Default = Latest REV
+            CFG OPTION         RELATION PARENT TYPE
+
+
+       INCLASS
+       =======
+
+       Used to create/update InClass ICOs and assign items or revs to ICOs.
+
+       Configuration Options...
+
+          INCLASS CREATE ICO       = ON|OFF
+                                     Controls if InClass ICOs should be created if
+                                     they do not exist.
+
+          INCLASS UPDATE ICO       = ON|OFF
+                                     Controls if InClass ICOs should be updated if
+                                     they already exist.
+
+          INCLASS UPDATE ICO OPTION = SINGLE ICO ONLY|FIRST ICO|ALL ICOS
+                                     Controls if only singly classified objects can
+                                     be updated.  Or, for multiple ICOs on the object,
+                                     just update the first one or all of its ICOs.
+
+          INCLASS DEFAULT CLASS ID = <ClassID>
+                                     Specifies a default class ID.
+
+          INCLASS ICO CLASSIFY OBJECT = ITEM|REV
+                                     Controls if the specified ITEM or REVision
+                                     should be classified with the InClass ICO.
+
+          INCLASS ALLOW MULTIPLE CLASSIFICATION = ON|OFF
+                                     Controls if multiple ICOs are allowed to be
+                                     classified on a single item or revision.
+                                     If OFF only one ICO classification is allowed.
+       Field Options...
+
+          IcsClassID                 Inclass Class ID
+
+          IcoPUID                    Inclass PUID (Tag)
+
+          IcoID                      Inclass ICO ID
+
+          IcsAttr:<inclass_attr_id>   Inclass Attribute ID
+                                     Use repeatedly to specify as many
+                                     attribute IDs as required.
+
+       NOTES...
+       1) Use standard 'items' mode fields to specify item and rev details,
+          in particular ItemID and RevID to specify the Item ID and optionally
+          the Rev ID of the item or revision to classify.
+          All other 'items' fields can be used to create or update items and revs too.
+       2) The Class ID can be defaulted in the config file or provided in a field.
+       3) If no IcoID or IcoPUID field is specified then the item ID specified will
+          be used as the IcoID, or 'ItemID/RevID' if classifying the revision.
+       4) To update individual ICOs classifing on an object which has multiple
+          classifications then use the IcoPUID.
+       5) To add multiple classification objects to one item or rev ensure UPDATE
+          is OFF, otherwise only existing ICOs will be updated.
+       6) By specifying a Class ID of 'UNCLASSIFY' an item or rev can be unclassified.
+          This will remove ALL ICOs classifying the object.
+
+
+       PROJECTS
+       ========
+
+       Used to create/update V9+ projects and assign items to projects.
+
+       Configuration Options...
+
+          CREATE PROJECTS          = ON|OFF
+                                     Controls if Projects should be created if
+                                     they do not exist.
+
+          UPDATE PROJECTS          = ON|OFF
+                                     Controls if Projects should be updated if
+                                     they already exist.
+
+          PROJECT APPEND MEMBERS   = ON|OFF
+                                     Controls if the Members/Privaleged Members
+                                     can be added to an project.
+
+          PROJECT ASSIGN TO TYPE   = ITEM|REV
+                                     Controls if the specified ITEM or REVision
+                                     should be assigned to the project.
+       Field Options...
+
+          ProjID                     Project ID
+
+          ProjName                   Project Name
+
+          ProjDesc                   Project Description
+
+          ProjMemberUser             Project Member User
+
+          ProjMemberGroup            Project Member Group
+
+          ProjMemberRole             Project Member Role
+
+          ProjAdminUser              Project Admin User
+
+          ProjPrivUser               Project Privilede User
+
+       IDENTIFIERS
+       ===========
+
+       Used to create/update V9+ Identifiers.
+
+       Configuration Options...
+
+          CREATE IDENTIFIERS       = ON|OFF
+                                     Controls if Identifiers should be created if
+                                     they do not exist.
+
+          UPDATE IDENTIFIERS       = ON|OFF
+                                     Controls if Identifiers should be updated if
+                                     they already exist.
+
+          CREATE IDFR REVS         = ON|OFF
+                                     Controls if Identifier Revision should be created
+                                     if a supplemental identifier does not exist at the
+                                     supplied ItemRevision.
+
+          UPDATE IDFR REVS         = ON|OFF
+                                     Controls if Identifier Revision should be updated
+                                     if a specified supplemental identifier already exists
+                                     at the supplied ItemRevision.
+
+          ALTERNATE ID CONTEXT     = Alternate ID Context
+                                     Name of IdContext to use.
+       Field Options...
+
+          AlternateID                Alternate ID
+
+          AlternateRevID             Alternate Rev ID
+
+          AlternateIDContext         Alternate ID Context
+
+          AltIDName                  Alternate ID Name
+
+          AltRevIDName               Alternate Rev ID Name
+
+          AltIDDesc                  Alternate ID Description
+
+          AltRevIDDesc               Alternate Rev ID Description
+
+          AltIDOwner                 Alternate ID Owner
+
+          AltIDGroup                 Alternate ID Group
+
+          AltIDType                  Alternate ID Group
+
+       MANUFACTURING
+       =============
+
+       Used to create/update V9+ TcManufacturing objects.
+
+       Configuration Options...
+
+          CREATE PROCESSES         = ON|OFF
+                                     Controls if MEProcess objects should be created if
+                                     they do not exist.
+
+          UPDATE PROCESSES         = ON|OFF
+                                     Controls if MEProcess objects should be updated if
+                                     they already exist.
+
+          CREATE PROCESS REVS      = ON|OFF
+                                     Controls if MEProcess Revisions should be created if
+                                     they do not exist.
+
+          UPDATE PROCESS REVS      = ON|OFF
+                                     Controls if MEProcess Revisions should be updated if
+                                     they already exist.
+
+          CREATE OPERATIONS        = ON|OFF
+                                     Controls if MEOP objects should be created if
+                                     they do not exist.
+
+          UPDATE OPERATIONS        = ON|OFF
+                                     Controls if MEOP objects should be updated if
+                                     they already exist.
+
+          CREATE OPERATION REVS    = ON|OFF
+                                     Controls if MEOP Revisions should be created if
+                                     they do not exist.
+
+          UPDATE OEPRATION REVS    = ON|OFF
+                                     Controls if MEOP Revisions should be updated if
+                                     they already exist.
+
+          CREATE WORKAREAS         = ON|OFF
+                                     Controls if MEWorkArea objects should be created if
+                                     they do not exist.
+
+          UPDATE WORKAREAS         = ON|OFF
+                                     Controls if MEWorkArea objects should be updated if
+                                     they already exist.
+
+          CREATE WORKAREA REVS     = ON|OFF
+                                     Controls if MEWorkArea Revisions should be created if
+                                     they do not exist.
+
+          UPDATE WORKAREA REVS     = ON|OFF
+                                     Controls if MEWorkArea Revisions should be updated if
+                                     they already exist.
+
+          CREATE ACTIVITIES        = ON|OFF
+                                     Controls if MEActivity objects should be created if
+                                     they do not exist.
+
+          UPDATE ACTIVITIES        = ON|OFF
+                                     Controls if MEActivity objects should be updated if
+                                     they already exist.
+
+          CREATE ACTIVITY FORMS    = ON|OFF
+                                     Controls if Form objects should be created if
+                                     they do not exist against the MEActivity.
+
+          UPDATE ACTIVITY FORMS    = ON|OFF
+                                     Controls if Form objects should be updated if
+                                     they already exist against the MEActivity.
+
+          LINK OP TO PROCESS       = ON|OFF
+                                     Controls if Process BOM (MEProcess<--MEOP(s) should
+                                     be created and/or updated for the Process.
+                                     If OFF, objects created independently, no BOM!
+
+          LINK PRODUCT TO PROCESS  = ON|OFF
+                                     Controls if Product Root should be attached to the
+                                     Process Root.
+                                     If OFF, no attachment is attempted.
+
+          LINK PLANT TO PROCESS    = ON|OFF
+                                     Controls if Plant Root should be attached to the
+                                     Process Root.
+                                     If OFF, no attachment is attempted.
+
+          PROCESS TYPE             = MEProcess class Type
+                                     Name of Valid MEProcess Type to use.
+
+          OPERATION TYPE           = MEOP class Type
+                                     Name of Valid MEOP Type to use.
+
+          WORKAREA TYPE            = MEWorkArea class Type
+                                     Name of Valid MEWorkArea Type to use.
+
+          ACTIVITY TYPE            = MEActivity class Type
+                                     Name of Valid MEActivity Type to use.
+
+          ACTIVITY FORM TYPE       = MEActivity Form Type
+                                     Name of Valid Form Type to use.
+
+       Field Options...
+
+          ProcID                     MEProcess ID
+
+          ProcRevID                  MEProcess Revision ID
+
+          ProcType                   MEProcess class Type
+
+          ProcName                   MEProcess Name
+
+          ProcDesc                   MEProcess Description
+
+          OpID                       MEOP ID
+
+          OpRevID                    MEOP Revision ID
+
+          OpType                     MEOP class Type
+
+          OpName                     MEOP Name
+
+          OpDesc                     MEProcess Description
+
+          WorkID                     MEWorkArea ID
+
+          WorkRevID                  MEWorkArea Revision ID
+
+          WorkType                   MEWorkArea class Type
+
+          WorkName                   MEWorkArea Name
+
+          WorkDesc                   MEWorkArea Description
+
+          ActType                    MEActivity class Type
+
+          ActName                    MEActivity Name
+
+          ActDesc                    MEActivity Description
+
+          ActTime                    MEActivity time (Duration)
+
+          ActPreds                   MEActivity Flow Predecessor
+
+          FormType                   MEActivity Form Type
+
+          FormName                   MEActivity Form Name
+
+          FormDesc                   MEActivity Form Description
+
+          F:<attribute_name>         MEActivity Form attribute to populate
+
+          FD:<attribute_name>        MEActivity Form Date attribute to populate
+
+          ProductTargetID            Product ID
+
+          ProductTargetRevID         Product Rev ID
+
+          PlantTargetID              Plant ID
+
+          PlantTargetRevID           Plant Rev ID
+
+          TargetChildID              Product/Plant Child ID
+                                     (Product/Plant structure Occurrence)
+
+          TargetChildRev             Product/Plant Child Rev ID
+                                     (Product/Plant structure Occurrence)
+
+          TargetChildSeqNo           Product/Plant Child Sequence No
+                                     (Product/Plant structure Occurrence)
+
+          TargetChildAbsOccID        Product/Plnat Child Absolute Occurrence ID (In Context)
+                                     (Product/Plant structure Occurrence)
+
+          ProcChildID                Process Child ID
+                                     (Process structure Occurrence)
+
+          ProcChildRev               Process Child Rev ID
+                                     (Process structure Occurrence)
+
+       NOTE:
+       =====
+
+       The MFG module uses these additional modules:
+
+         * BOM - All CFG options and input fields are also valid.
+
+       Please refer to the QUICK_DOCS for further information
+       on all valid settings/input options for dependency modules.
+
+       WORKFLOW
+       ========
+
+       Used to create and update workflow processes.
+
+       Configuration Options...
+
+          CREATE WF PROCESS        = ON|OFF
+                                     Controls if a new process should be created.
+                                     Default is ON.
+
+          CREATE WF PROCESS ALWAYS = ON|OFF
+                                     Controls if a new process should always be created
+                                     even if one already exists with the same name.
+                                     Default is OFF.
+
+          UPDATE WF PROCESS        = ON|OFF
+                                     Controls if an existing process should be updated.
+                                     Default is OFF.
+
+          WORKFLOW INITIATE PROCESS = ON|OFF
+                                     Controls if a new process should be initiated.
+                                     Default is OFF.
+
+          WORKFLOW TEMPLATE        = Workflow Process Template.
+                                     Specifies the WF Process Template for new processes.
+
+          WORKFLOW ATTACH OBJECT   = ITEM|REV
+                                     Specifies whether the item or rev should be attached.
+                                     Only relevant if ItemID field is specified in data file.
+                                     Default is REV.
+
+          WORKFLOW ATTACH TYPE     = TARGET|REFERENCE
+                                     Specifies whether an object should be attached
+                                     as a target or reference to the wf process.
+                                     Default is TARGET.
+
+     Field Options...
+
+          WFProcessName              WF Process Name
+
+          WFProcessDesc              WF Process Description
+
+          WFProcessTpl               WF Process Template
+
+          WFProcessOwner             WF Process Owning User ID
+
+          WFProcessGroup             WF Process Owning Group
+
+          WFAttachType               Workflow attachment type
+                                     Values are TARGET|REFERENCE
+
+          WFAttachObject             Object Type to attach to WF Process
+                                     Values are ITEM|REV
+
+          WFInitiate                 Initiate Workflow Process
+                                     Values are YES|NO
+
+
+       POM OBJECTS
+       =======
+
+       Used to create and update pom_objects objects.
+
+       Configuration Options...
+
+          CREATE POM OBJECTS       = ON|OFF
+                                     Controls if new POM objects should be created.
+
+          CREATE POM OBJECTS ALWAYS = ON|OFF
+                                     Controls if new POM objects should always be created, even if not unique.
+
+          UPDATE POM OBJECTS       = ON|OFF
+                                     Controls if existing POM objects should be updated.
+
+          POM PRIMARY CLASS        = <primary_class_to_create>
+                                     Defines the primary class, i.e. the class of the main object to create.
+
+     Field Options...
+
+          <Class>:<Attr>[.KEY[.CLASS]]   Specify the object class and attribute.
+                                     .KEY indicates a key field to use in a query to find objects.
+                                     .CLASS indicates a link to another object.  The data value must supply the ref'd class.
+
+

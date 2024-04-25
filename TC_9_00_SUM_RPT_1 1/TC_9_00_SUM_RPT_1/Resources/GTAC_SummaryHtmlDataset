@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:plm="http://www.plmxml.org/Schemas/PLMXMLSchema">
+
+  <xsl:output method="html" doctype-system="about:legacy-compat" indent="yes"/>
+  
+  <xsl:template match="/">
+    <html>
+      <head>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+          }
+          h2 {
+            text-align: center;
+            color: #333;
+          }
+          table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+          }
+          th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+          }
+          th {
+            background-color: #f2f2f2;
+            color: #333;
+          }
+          tr:nth-child(even) {
+            background-color: #f9f9f9;
+          }
+          tr:hover {
+            background-color: #f5f5f5;
+          }
+        </style>
+      </head>
+      <body>
+        <h2>Item Revision Report</h2>
+        <p>This report provides information about product revisions.</p>
+        <table>
+          <tr>
+            <th>Item ID</th>
+            <th>Revision</th>
+            <th>Last Modified Date</th>
+            <th>Object Name</th>
+            <th>Object Description</th>
+            <th>Object Type</th>
+            <th>Owning User</th>
+          </tr>
+          <xsl:for-each select="/plm:PLMXML/plm:ProductRevision">
+            <xsl:variable name="itemID" select="substring-after(./@masterRef, '#')"/>
+            <xsl:variable name="itemIDValue" select="/plm:PLMXML/plm:Product[@id=$itemID]/@productId"/>
+            <xsl:variable name="revision" select="./@revision"/>
+            <xsl:variable name="statusXLID" select="substring-after(./@releaseStatusRefs, '#')"/>
+            <xsl:variable name="statusObj" select="/plm:PLMXML/plm:ReleaseStatus[@id=$statusXLID]"/>
+            <xsl:variable name="status" select="$statusObj/@name"/>
+            <xsl:variable name="last_mod_date" select="substring-before(plm:UserData/plm:UserValue[@title='last_mod_date']/@value, 'T')"/>
+            <xsl:variable name="object_name" select="plm:UserData/plm:UserValue[@title='object_name']/@value"/>
+            <xsl:variable name="object_desc" select="plm:UserData/plm:UserValue[@title='object_desc']/@value"/>
+            <xsl:variable name="objectType" select="plm:UserData/plm:UserValue[@title='object_type']/@value"/>
+			<xsl:variable name="owning_userDataref" select="substring-after(plm:UserData/plm:UserValue[@title='owning_user']/@dataRef,'#')"/>
+			<xsl:variable name="owning_user" select="/plm:PLMXML/plm:User[@id=$owning_userDataref]/@userId"/>
+			
+
+            <tr>
+              <td><xsl:value-of select="$itemIDValue"/></td>
+              <td><xsl:value-of select="$revision"/></td>
+              <td><xsl:value-of select="$last_mod_date"/></td>
+              <td><xsl:value-of select="$object_name"/></td>
+              <td><xsl:value-of select="$object_desc"/></td>
+              <td><xsl:value-of select="$objectType"/></td>
+              <td><xsl:value-of select="$owning_user"/></td>
+            </tr>
+          </xsl:for-each>
+        </table>
+      </body>
+    </html>
+  </xsl:template>
+</xsl:stylesheet>
