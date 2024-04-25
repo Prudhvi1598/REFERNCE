@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<tcinit/tcinit.h>
 #include<tc/tc_startup.h>
+#include<tccore/project.h>
 #include<bom/bom.h>
 #include "Header.h"
 
@@ -9,11 +10,20 @@
 int ITK_user_main(int argc, char** argv)
 {
 	int iFail = 0;
+	tag_t tag_item = NULLTAG;
+	tag_t tag_project = NULLTAG;
+
+
 	iFail = LOGIN;
 	if (iFail == 0)
 	{
 		printf("TC Login successful!\n---------------------\n\n");
-
+		CHECK(ITEM_find_item("000321", &tag_item));
+		CHECK(PROJ_find("project2", &tag_project));
+		tag_t projects[] = { tag_project };
+		tag_t objects[] = { tag_item };
+		CHECK(PROJ_assign_objects(1, projects, 1, objects));
+		printf("Project assigned\n\n");
 	}
 	else
 	{
@@ -21,19 +31,3 @@ int ITK_user_main(int argc, char** argv)
 	}
 	return ITK_ok;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
