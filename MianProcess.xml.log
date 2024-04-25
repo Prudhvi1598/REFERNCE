@@ -1,0 +1,32 @@
+****************************
+   PLMXML Log File Header   
+   ----------------------   
+            EXPORT          
+****************************
+Server Hostname :  INHYD0012NB
+Teamcenter version :  Teamcenter V13000.2.0.20210518.00
+Syslog-FileName :  C:\Users\12185\AppData\Local\Temp\tcserver.exe3dec8ef3.syslog
+LOG-FileName is:  MianProcess.xml.log
+XML-FileName is:  MianProcess.xml
+XSLT-FileName is:  
+TransferMode Name :  workflow_template_mode
+OverWrite-ExistingData is:  0
+CheckOutObjects-UponExport is:  0
+CheckFor-ExportPrivilege is:  1
+****************************
+///// Teamcenter Export Summary BEGIN: Processed the following Teamcenter Objects
+ TCObject:: EPMAction                                          Count:: 6 
+ TCObject:: EPMBRHandler                                       Count:: 1 
+ TCObject:: EPMBusinessRule                                    Count:: 1 
+ TCObject:: EPMDoTaskTemplate                                  Count:: 1 
+ TCObject:: EPMHandler                                         Count:: 9 
+ TCObject:: EPMTaskTemplate                                    Count:: 4 
+///// Teamcenter Export Summary: Generated the following PLMXML Elements
+ Element:: WorkflowAction                                     Count:: 6 
+ Element:: WorkflowBusinessRule                               Count:: 1 
+ Element:: WorkflowBusinessRuleHandler                        Count:: 1 
+ Element:: WorkflowHandler                                    Count:: 9 
+ Element:: WorkflowTemplate                                   Count:: 5 
+///// Teamcenter Export Summary END: /////
+
+
