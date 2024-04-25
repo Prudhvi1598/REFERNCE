@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerEnvironment>ALLUSERSPROFILE=C:\ProgramData
+APPDATA=C:\Users\T50315\AppData\Roaming
+ChocolateyInstall=C:\ProgramData\chocolatey
+CommonProgramFiles=C:\Program Files\Common Files
+CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files
+CommonProgramW6432=C:\Program Files\Common Files
+COMPUTERNAME=INHYD0002DC
+ComSpec=C:\WINDOWS\system32\cmd.exe
+DriverData=C:\Windows\System32\Drivers\DriverData
+FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer
+FPS_BROWSER_USER_PROFILE_STRING=Default
+HOMEDRIVE=C:
+HOMEPATH=\Users\T50315
+JAVA_HOME=D:\java11\ENV\ENV\jdk-11.0.15.10-hotspot
+JDK_HOME=D:\java11\ENV\ENV\jdk-11.0.15.10-hotspot
+JRE64_HOME=D:\java11\ENV\ENV\jre-11.0.15.10-hotspot
+JRE_HOME=D:\java11\ENV\ENV\jre-11.0.15.10-hotspot
+LOCALAPPDATA=C:\Users\T50315\AppData\Local
+LOGONSERVER=\\INBGLVM02DC
+NUMBER_OF_PROCESSORS=12
+OneDrive=C:\Users\T50315\OneDrive - IZ
+OneDriveCommercial=C:\Users\T50315\OneDrive - IZ
+OS=Windows_NT
+Path=D:\Apps\Downloads\WINDOWS.X64_193000_db_home\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;D:\TC_13\WINDOWS.X64_193000_db_home\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\Microsoft Visual Studio\2017\WDExpress\VC\Tools\MSVC\14.16.27023\bin\Hostx86\x64;D:\Apps\Java\jdk1.8.0_231;C:\Users\T50315\AppData\Local\Microsoft\WindowsApps;
+PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+PROCESSOR_ARCHITECTURE=AMD64
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 167 Stepping 1, GenuineIntel
+PROCESSOR_LEVEL=6
+PROCESSOR_REVISION=a701
+ProgramData=C:\ProgramData
+ProgramFiles=C:\Program Files
+ProgramFiles(x86)=C:\Program Files (x86)
+ProgramW6432=C:\Program Files
+PROMPT=$P$G
+PSModulePath=C:\Program Files (x86)\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+PUBLIC=C:\Users\Public
+SESSIONNAME=Console
+SPLM_LICENSE_SERVER=28000@192.168.2.15
+SystemDrive=C:
+SystemRoot=C:\WINDOWS
+TEMP=C:\Users\T50315\AppData\Local\Temp
+TMP=C:\Users\T50315\AppData\Local\Temp
+USERDNSDOMAIN=IZD01.IN
+USERDOMAIN=IZD01
+USERDOMAIN_ROAMINGPROFILE=IZD01
+USERNAME=T50315
+USERPROFILE=C:\Users\T50315
+VBOX_MSI_INSTALL_PATH=C:\Program Files\Oracle\VirtualBox\
+windir=C:\WINDOWS
+ZES_ENABLE_SYSMAN=1
+$(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>-u=hello -p=hello -g=dba -itemid=000360</LocalDebuggerCommandArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LocalDebuggerCommandArguments>-u=hello -p=hello -g=dba -itemid=000360</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerEnvironment>ALLUSERSPROFILE=C:\ProgramData
+APPDATA=C:\Users\T50315\AppData\Roaming
+ChocolateyInstall=C:\ProgramData\chocolatey
+CommonProgramFiles=C:\Program Files\Common Files
+CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files
+CommonProgramW6432=C:\Program Files\Common Files
+COMPUTERNAME=INHYD0002DC
+ComSpec=C:\WINDOWS\system32\cmd.exe
+DriverData=C:\Windows\System32\Drivers\DriverData
+FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer
+FPS_BROWSER_USER_PROFILE_STRING=Default
+HOMEDRIVE=C:
+HOMEPATH=\Users\T50315
+JAVA_HOME=D:\java11\ENV\ENV\jdk-11.0.15.10-hotspot
+JDK_HOME=D:\java11\ENV\ENV\jdk-11.0.15.10-hotspot
+JRE64_HOME=D:\java11\ENV\ENV\jre-11.0.15.10-hotspot
+JRE_HOME=D:\java11\ENV\ENV\jre-11.0.15.10-hotspot
+LOCALAPPDATA=C:\Users\T50315\AppData\Local
+LOGONSERVER=\\INBGLVM02DC
+NUMBER_OF_PROCESSORS=12
+OneDrive=C:\Users\T50315\OneDrive - IZ
+OneDriveCommercial=C:\Users\T50315\OneDrive - IZ
+OS=Windows_NT
+Path=D:\Apps\Downloads\WINDOWS.X64_193000_db_home\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;D:\TC_13\WINDOWS.X64_193000_db_home\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\Microsoft Visual Studio\2017\WDExpress\VC\Tools\MSVC\14.16.27023\bin\Hostx86\x64;D:\Apps\Java\jdk1.8.0_231;C:\Users\T50315\AppData\Local\Microsoft\WindowsApps;
+PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+PROCESSOR_ARCHITECTURE=AMD64
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 167 Stepping 1, GenuineIntel
+PROCESSOR_LEVEL=6
+PROCESSOR_REVISION=a701
+ProgramData=C:\ProgramData
+ProgramFiles=C:\Program Files
+ProgramFiles(x86)=C:\Program Files (x86)
+ProgramW6432=C:\Program Files
+PROMPT=$P$G
+PSModulePath=C:\Program Files (x86)\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+PUBLIC=C:\Users\Public
+SESSIONNAME=Console
+SPLM_LICENSE_SERVER=28000@192.168.2.15
+SystemDrive=C:
+SystemRoot=C:\WINDOWS
+TEMP=C:\Users\T50315\AppData\Local\Temp
+TMP=C:\Users\T50315\AppData\Local\Temp
+USERDNSDOMAIN=IZD01.IN
+USERDOMAIN=IZD01
+USERDOMAIN_ROAMINGPROFILE=IZD01
+USERNAME=T50315
+USERPROFILE=C:\Users\T50315
+VBOX_MSI_INSTALL_PATH=C:\Program Files\Oracle\VirtualBox\
+windir=C:\WINDOWS
+ZES_ENABLE_SYSMAN=1
+$(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
+  </PropertyGroup>
+</Project>
