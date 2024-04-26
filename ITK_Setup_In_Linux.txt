@@ -1,0 +1,73 @@
+//---------COMPILING ITK CODE IN LINUX-----------------------------//
+
+->Create a LINUX_ITK folder in TC13 folder
+->Now goto /home/admin/TC13/TC_ROOT/sample
+->Copy the below mentioned files
+	->compile sh file
+	->link_custom_exits csh file
+	->linkitk sh file
+	->link_server_exits csh file
+	->link_user_exits csh file
+->Paste the above mentioned files in LINUX_ITK
+
+
+->After pasting the sh files, create a text document with .cxx and write your ITK_code
+->Save it
+->After saving the .cxx file, open the terminal in LINUX_ITK
+
+->Now run the below mentioned commands
+
+
+export TC_ROOT=/home/admin/TC_13/TC_ROOT
+export TC_DATA=/home/admin/TC_13/TC_DATA
+export TC_INCLUDE=/home/admin/TC_13/TC_ROOT/include
+. $TC_DATA/tc_profilevars
+export TC_USER_LIB=/home/admin/TC_13/TC_ROOT/lib
+
+COMPLIE: ./compile -DIPLIB=none code_file_name.cxx
+
+GENREATE EXECUTABLE FILE:./linkitk -o executable_file_name code_file_name.o
+
+RUN THE CODE: ./executable_file_name
+
+RUN THE CODE WITH COMMAND LINE ARGUMETNS: ./executable_file_name -u=<username> -p=<password> -g=<group>
+---------------------------------------------------------------------
+//---------COMPILING DLL CODE IN LINUX-----------------------------//
+
+->Create a LINUX_DLL folder in TC13 folder
+->Now goto /home/admin/TC13/TC_ROOT/sample
+->Copy the below mentioned files
+	->compile sh file
+	->link_custom_exits csh file
+	->linkitk sh file
+	->link_server_exits csh file
+	->link_user_exits csh file
+->Paste the above mentioned files in LINUX_DLL
+->After pasting the sh files, create a text document with .c and write your DLL_code
+->Save it
+->After saving the .c file, open the terminal in LINUX_DLL
+->Now run the below mentioned commands\
+
+
+export TC_ROOT=/home/admin/TC_13/TC_ROOT
+export TC_DATA=/home/admin/TC_13/TC_DATA
+export TC_INCLUDE=/home/admin/TC_13/TC_ROOT/include
+. $TC_DATA/tc_profilevars
+export TC_USER_LIB=/home/admin/TC_13/TC_ROOT/lib
+
+COMPILE: ./compile -DIPLIB=none file_name.c
+Generate .so file: ./link_custom_exits file_name
+
+After generation .so file,
+-> Goto /home/admin/TC13/TC_ROOT/lib
+-> Copy file_name.so file
+->paste in /home/admin/TC13/TC_ROOT/bin
+
+now , your DLL file is pasted in Bin folder
+
+
+Once you do any changes in the code.....
+->Compile the code only(but not generate .so file)
+->Delete the previous .so files in bin folder and lib folder.
+->Generate .so file: ./link_custom_exits file_name
+->Again Paste .so file from lib folder to Bin folder
